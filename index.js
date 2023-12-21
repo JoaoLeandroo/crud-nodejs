@@ -6,6 +6,13 @@ server.use(express.json());
 
 const cursos = ["Java Script", "Node JS"];
 
+// Middleware Global
+server.use((req, res, next) => {
+  console.log("REQUISIÇÃO CHAMADA");
+
+  return next();
+});
+
 server.get("/curso", (req, res) => {
   return res.json(cursos);
 });
@@ -18,21 +25,20 @@ server.post("/curso", (req, res) => {
 });
 
 server.put("/curso/:index", (req, res) => {
-    const { index } = req.params
-    const { nome }= req.body
+  const { index } = req.params;
+  const { nome } = req.body;
 
-    cursos[index] = nome
+  cursos[index] = nome;
 
-    return res.json(cursos)
-})
+  return res.json(cursos);
+});
 
-server.delete('/curso/:index', (req, res) => {
-    const { index } = req.params
+server.delete("/curso/:index", (req, res) => {
+  const { index } = req.params;
 
-    cursos.splice(index, 1)
+  cursos.splice(index, 1);
 
-    return res.json(cursos)
-
-})
+  return res.json(cursos);
+});
 
 server.listen(3000);
